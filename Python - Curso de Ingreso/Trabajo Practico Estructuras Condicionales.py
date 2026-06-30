@@ -1,6 +1,6 @@
 #1. Solicita al usuario que ingrese su edad y determina si es mayor de edad o no.
 edad = int(input("Ingrese su edad: "))
-if (edad > 18):
+if (edad >= 18):
     print("Es mayor de edad")
 
 #2. Solicita su nota al usuario y determina si aprobó o no. (Nota de aprobación: 6)
