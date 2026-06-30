@@ -6,13 +6,27 @@ for i in range(101):
 
 #2. Determina la cantidad de dígitos que contiene un número entero
 entero = int(input("Ingrese un número entero: "))
-digitos = len(str(entero))
-print(f"El número {entero} tiene {digitos} dígitos")
+num=entero #Guarda el valor original
+cont = 0
+#Convierte números negativos a positivos para contar los dígitos
+if entero < 0:
+    entero = -entero
+#---Caso especial para el número 0---
+if entero == 0:
+    cont = 1
+#---Determina la cantidad de dígitos---
+else:
+    while entero != 0:
+        entero //= 10
+        cont += 1
+print(f"El número {num} tiene {cont} dígitos")
 
 #3. Suma todos los números enteros comprendidos entre dos valores dados por el usuario, excluyendo esos dos valores
 num1 = int(input("Ingrese el primer número: "))
 num2 = int(input("Ingrese el segundo número: "))
 suma = 0
+if num1 > num2:
+    num1, num2 = num2, num1  # Intercambia los valores si el primero es mayor que el segundo
 for i in range(num1 + 1, num2):
     suma += i
 print(f"La suma de los números entre {num1} y {num2} es: {suma}")
@@ -65,7 +79,7 @@ for i in range(100):
         impares += 1
     if num_ent > 0:
         positivos += 1
-    else:
+    elif num_ent < 0:
         negativos += 1
 print("--------------------------------------")
 print(f"Cantidad de números pares: {pares}")
@@ -75,6 +89,22 @@ print(f"Cantidad de números negativos: {negativos}")
 print(f"Media de los valores ingresados: {media / 100}")
 
 #10. Invierte el orden de los dígitos de un número ingresado por el usuario
-num_a_invertir = input("Ingrese el número a invertir: ")
-num_invertido = num_a_invertir[::-1]
+num_a_invertir = int(input("Ingrese el número entero a invertir: "))
+num_invertido = 0
+#--Convertimos el número negativo a positivo para invertirlo correctamente--
+if num_a_invertir < 0:
+    negativo = True
+    num_a_invertir = -num_a_invertir
+else:
+    negativo = False
+#--Invertimos el número--
+while num_a_invertir > 0:
+    digito = num_a_invertir % 10
+    num_invertido = (num_invertido * 10) + digito
+    num_a_invertir //= 10
+
+#Recuperamos el signo del negativo si es necesario
+if negativo:
+    num_invertido = -num_invertido
+
 print(f"El número invertido es: {num_invertido}")
