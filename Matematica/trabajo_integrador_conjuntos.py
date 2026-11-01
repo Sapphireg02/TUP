@@ -1,0 +1,291 @@
+# Programa que permita automatizar los cálculos.
+def universo():
+    """Permite ingresar la cantidad total de elementos en el universo."""
+    while True:
+        try:
+            # Solicita al usuario que ingrese la cantidad total de elementos en el universo.
+            u = int(input("Ingrese la cantidad total de elementos en el universo: "))
+            if u <= 0:
+                print("El universo debe ser un número positivo.")
+                continue
+            # Devuelve el valor ingresado si es válido.
+            return u
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
+
+def descripcion_universo():
+    """Permite ingresar la descripción del universo."""  
+    while True:
+        # Solicita al usuario que ingrese la descripción del universo.
+        desc_u = input("Ingrese la descripción del universo: \nEjemplo: 'Totalidad de personas en un grupo de amigos'\n")
+
+        # Valida que la descripción del universo sea una cadena de texto no vacía y no solo números.
+        if not isinstance(desc_u, str):
+            raise TypeError("La descripción del universo debe ser una cadena de texto.")
+        
+        if desc_u.strip() == "":
+            print("La descripción no puede estar vacía.")
+            continue
+
+        if desc_u.strip().isdigit():
+            print("La descripción no puede ser solo un número.")
+            continue
+
+        return desc_u
+    
+def validar_conjunto(conjunto):
+    """Valida que la descripción del conjunto sea una cadena de texto no vacía y no solo números."""
+
+    # Valida que la descripción del conjunto sea una cadena de texto no vacía y no solo números.
+    if not isinstance(conjunto, str):
+        raise TypeError("La descripción del conjunto debe ser una cadena de texto.")
+
+    if conjunto.strip() == "":
+        raise ValueError("La descripción del conjunto no puede estar vacía.")
+
+    if conjunto.strip().isdigit():
+        raise ValueError("La descripción del conjunto no puede ser solo un número.")
+
+    return conjunto.strip()
+
+def descripcion_conjunto():
+    """Permite ingresar los nombres descriptivos de los conjuntos A, B y C y los envía a la función de validación."""
+    while True:
+        # Descripción del conjunto A.
+        desc_a = input("Ingrese la descripción del conjunto A: \nEjemplo: 'Personas que juegan Minecraft'\n")
+        try:
+            # Valida el conjunto A.
+            desc_a = validar_conjunto(desc_a)
+            break
+        except ValueError as e:
+            print(e)
+
+    while True:
+        # Descripcion del conjunto B
+        desc_b = input("Ingrese la descripción del conjunto B: \nEjemplo: 'Personas que juegan Genshin Impact'\n")
+        try:
+            # Valida el conjunto B
+            desc_b = validar_conjunto(desc_b)
+            break
+        except ValueError as e:
+            print(e)
+
+    while True:
+        # Descripcion del conjunto C.
+        desc_c = input("Ingrese la descripción del conjunto C: \nEjemplo: 'Personas que juegan Roblox'\n")
+        try:
+            # Valida el conjunto C.
+            desc_c = validar_conjunto(desc_c)
+            break
+        except ValueError as e:
+            print(e)
+
+    return desc_a, desc_b, desc_c
+
+def validar_numero(elemento_conjunto):
+    """Verifica que el número sea un entero no negativo."""
+    if elemento_conjunto is None:
+        raise ValueError("Debe ingresar un número.")
+
+    texto = str(elemento_conjunto).strip()
+
+    if texto == "":
+        raise ValueError("El campo no puede estar vacío.")
+
+    # Solo acepta números enteros positivos
+    if not texto.isdigit():
+        raise ValueError("Debe ingresar solo números enteros no negativos.")
+
+    return int(texto)
+
+def total_conjuntos():
+    """Permite ingresar el número total de elementos de cada conjunto."""
+    while True:
+        # Elementos del conjunto A.
+        try:
+            # Verifica que sea un número válido.
+            nro_a = validar_numero(input("Ingrese el número total de elementos del conjunto A: "))
+            break
+        except ValueError as e:
+            print(e)
+    
+    while True:
+        # Elementos del conjunto B.
+        try:
+            # Verifica que sea un número válido.
+            nro_b = validar_numero(input("Ingrese el número total de elementos del conjunto B: "))
+            break
+        except ValueError as e:
+            print(e)
+    
+    while True:
+        # Elementos del conjunto C.
+        try:
+            # Verifica que sea un número válido.
+            nro_c = validar_numero(input("Ingrese el número total de elementos del conjunto C: "))
+            break
+        except ValueError as e:
+            print(e)
+
+    return nro_a,nro_b,nro_c
+
+def total_intersecciones():
+    """Permite ingresar el número de elementos de las intersecciones entre conjuntos."""
+    while True:
+        # Elementos de la intersección entre A y B.
+        try:
+            # Verifica que sea un número válido.
+            inters_AyB = validar_numero(input("Ingrese el número de elementos en la intersección de los conjuntos A y B: "))
+            break
+        except ValueError as e:
+            print(e)
+    
+    while True:
+        # Elementos de la intersección entre A y C.
+        try:
+            # Verifica que sea un número válido.
+            inters_AyC = validar_numero(input("Ingrese el número de elementos en la intersección de los conjuntos A y C: "))
+            break
+        except ValueError as e:
+            print(e)
+    
+    while True:
+        # Elementos de la intersección entre B y C.
+        try:
+            # Verifica que sea un número válido.
+            inters_ByC = validar_numero(input("Ingrese el número de elementos en la intersección de los conjuntos B y C: "))
+            break
+        except ValueError as e:
+            print(e)
+
+    while True:
+        try:
+            inters_AyByC = validar_numero(input("Ingrese el número de elementos que pertenecen a los tres conjuntos simultáneamente (A ∩ B ∩ C): "))
+            break
+        except ValueError as e:
+            print(e)
+
+    return inters_AyB,inters_AyC,inters_ByC,inters_AyByC
+
+def validar_totales(nro_a,nro_b,nro_c,u):
+    """Valida que los tamaños de los conjuntos no superen el universo."""
+    if nro_a > u:
+        raise ValueError("El conjunto A no puede tener más elementos que el universo.")
+    if nro_b > u:
+        raise ValueError("El conjunto B no puede tener más elementos que el universo.")
+    if nro_c > u:
+        raise ValueError("El conjunto C no puede tener más elementos que el universo.")
+    return True
+
+def validar_intersecciones(nro_a, nro_b, nro_c, inters_AyB, inters_AyC, inters_ByC, inters_AyByC):
+    """Valida que las intersecciones sean coherentes con los tamaños de los conjuntos."""
+    if inters_AyB > min(nro_a, nro_b):
+        raise ValueError("La intersección de A y B no puede ser mayor que el menor de los dos conjuntos.")
+
+    if inters_AyC > min(nro_a, nro_c):
+        raise ValueError("La intersección de A y C no puede ser mayor que el menor de los dos conjuntos.")
+
+    if inters_ByC > min(nro_b, nro_c):
+        raise ValueError("La intersección de B y C no puede ser mayor que el menor de los dos conjuntos.")
+
+    if inters_AyByC > min(nro_a, nro_b, nro_c):
+        raise ValueError("La intersección de A, B y C no puede ser mayor que el menor de los tres conjuntos.")
+
+    if inters_AyByC > inters_AyB:
+        raise ValueError("A ∩ B ∩ C no puede ser mayor que A ∩ B.")
+
+    if inters_AyByC > inters_AyC:
+        raise ValueError("A ∩ B ∩ C no puede ser mayor que A ∩ C.")
+
+    if inters_AyByC > inters_ByC:
+        raise ValueError("A ∩ B ∩ C no puede ser mayor que B ∩ C.")
+
+    # Validación para que los cálculos no den números negativos.
+    if inters_AyB < inters_AyByC:
+        raise ValueError("A ∩ B no puede ser menor que A ∩ B ∩ C.")
+
+    if inters_AyC < inters_AyByC:
+        raise ValueError("A ∩ C no puede ser menor que A ∩ B ∩ C.")
+
+    if inters_ByC < inters_AyByC:
+        raise ValueError("B ∩ C no puede ser menor que A ∩ B ∩ C.")
+
+    return True
+
+def nro_elementos_unicos(total_a, total_b, total_c, inters_ab, inters_ac, inters_bc, inters_abc):
+    """Calcula el número de elementos que pertenecen únicamente a cada conjunto."""
+    solo_a= total_a - (inters_ab - inters_abc) - (inters_ac - inters_abc) - inters_abc
+    solo_b= total_b - (inters_ab - inters_abc) - (inters_bc - inters_abc) - inters_abc
+    solo_c= total_c - (inters_ac - inters_abc) - (inters_bc - inters_abc) - inters_abc
+
+    if solo_a < 0 or solo_b < 0 or solo_c < 0:
+        raise ValueError("Los valores ingresados son inconsistentes: no puede haber elementos negativos en un conjunto.")
+
+    return (solo_a,solo_b,solo_c)
+
+def unicos_intersecciones(inters_ab, inters_ac, inters_bc, inters_abc):
+    """Calcula el número de elementos que pertenecen únicamente a las intersecciones de dos conjuntos."""
+    solo_ayb = inters_ab - inters_abc
+    solo_ayc = inters_ac - inters_abc
+    solo_byc = inters_bc - inters_abc
+
+    return (solo_ayb,solo_ayc,solo_byc)
+
+def no_pertenece(u, solo_a,solo_b,solo_c,solo_ayb,solo_ayc,solo_byc,inters_AyByC):
+    """Calcula el total de elementos que no pertenecen a ninguno de los tres conjuntos."""
+    no = solo_a + solo_b + solo_c + solo_ayb + solo_ayc + solo_byc + inters_AyByC
+    no = u - no
+    return no
+
+def main():
+    # Descripción del universo.
+    desc_u = descripcion_universo()
+
+    # Número total de elementos del universo.
+    u = universo()
+    print(f"Descripción del universo: {desc_u}")
+    print(f"El universo ingresado es: {u}")
+
+    # Descripción del universo A, B y C.
+    desc_a,desc_b,desc_c = descripcion_conjunto()
+    print(f"Descripción del conjunto A: {desc_a}")
+    print(f"Descripción del conjunto B: {desc_b}")
+    print(f"Descripción del conjunto C: {desc_c}")
+
+    # Validación de tamaños de conjuntos.
+    while True:
+        # Número total de elementos de cada conjunto.
+        nro_a,nro_b,nro_c = total_conjuntos()
+        try:
+            validar_totales(nro_a,nro_b,nro_c,u)
+            break
+        except ValueError as e:
+            print(e)
+    print(f"Número total de elementos: \nA ({desc_a}): {nro_a}\nB ({desc_b}): {nro_b}\nC ({desc_c}): {nro_c}")
+    
+    # Validación de intersecciones
+    while True:
+        # Número de elementos de las intersecciones entre conjuntos
+        inters_AyB, inters_AyC, inters_ByC, inters_AyByC = total_intersecciones()
+        try:
+            validar_intersecciones(nro_a, nro_b, nro_c, inters_AyB, inters_AyC, inters_ByC, inters_AyByC)
+            break
+        except ValueError as e:
+            print(e)
+    print("Valores cargados correctamente.")
+    print(f"Intersección entre A ({desc_a}) y B ({desc_b}): {inters_AyB}\nIntersección entre A ({desc_a}) y C ({desc_c}): {inters_AyC}\nIntersección entre B ({desc_b}) y C ({desc_c}): {inters_ByC}\nIntersección entre A ({desc_a}), B ({desc_b}) Y C ({desc_c}): {inters_AyByC}")
+
+    # Número de elementos que pertenecen únicamente a cada conjunto:
+    solo_a, solo_b, solo_c = nro_elementos_unicos(nro_a,nro_b,nro_c,inters_AyB,inters_AyC,inters_ByC,inters_AyByC)
+    print(f"Elementos solo en A ({desc_a}): {solo_a}\nElementos solo en B ({desc_b}): {solo_b}\nElementos solo en C ({desc_c}): {solo_c}")
+
+    # Número de elementos que pertenecen únicamente a las intersecciones de dos conjuntos.
+    solo_ayb, solo_ayc, solo_byc = unicos_intersecciones(inters_AyB, inters_AyC, inters_ByC, inters_AyByC)
+    print(f"Elementos solo en la intersección entre A ({desc_a}) y B ({desc_b}): {solo_ayb}\nElementos solo en la intersección entre A ({desc_a}) y C ({desc_c}): {solo_ayc}\nElementos solo en la intersección entre B ({desc_b}) y C ({desc_c}): {solo_byc}\nElementos que pertenecen a los 3 conjuntos: {inters_AyByC}")
+
+    # Número de elementos que no pertenecen a ningún conjunto:
+    ninguno = no_pertenece(u,solo_a,solo_b,solo_c,solo_ayb,solo_ayc,solo_byc,inters_AyByC)
+    print(f"No pertenecen a ninguno de los tres conjuntos: {ninguno} elementos.")
+
+if __name__ == "__main__":
+    main()
